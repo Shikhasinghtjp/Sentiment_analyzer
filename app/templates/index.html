@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analyzer</title>
+
+    <!-- Favicon (Global Link) -->
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/742/742751.png" type="image/png">
+
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Lottie Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
+
+    <!-- Styling -->
+   <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="toggle-mode" onclick="toggleDarkMode()">
+        <i class="fas fa-adjust"></i>
+    </div>
+
+    <div class="container">
+        <div id="animation"></div>
+        <h1>Sentiment Analyzer</h1>
+        <form method="POST" action="/predict">
+            <textarea name="text" rows="4" placeholder="Type your message here..."></textarea>
+            <button type="submit">Analyze</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result">
+            <h3>{{ prediction }}</h3>
+            <div id="emoji">{% if sentiment_label == "pos" %}😍{% else %}🙁{% endif %}</div>
+        </div>
+        {% endif %}
+
+        {% if error %}
+        <div id="toast" class="toast">{{ error }}</div>
+        {% endif %}
+    </div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
